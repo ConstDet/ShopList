@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.List;
+import java.lang.String;
 
 public class Main {
     protected static List<String> listOperation, listProduct;
@@ -46,15 +47,31 @@ public class Main {
             }
         }
     }
+
+    public static void findProduct() {
+        System.out.println("Введите текст для поиска: ");
+        String choice = scanner.nextLine();
+        System.out.println("Найдено: ");
+        for (int i = 0; i < listBasket.size(); i++) {
+            if (listBasket.get(i).toLowerCase().contains(choice.toLowerCase())) {
+                String s = listBasket.get(i);
+                int x = listBasket.indexOf(listBasket.get(i));
+                System.out.println(listBasket.indexOf(listBasket.get(i)) + 1 + ". " +listBasket.get(i));
+            }
+        }
+    }
     public static void main(String[] args) {
         listOperation = new ArrayList<>();
         listOperation.add("Добавить товар");
         listOperation.add("Показать корзину");
         listOperation.add("Удалить товар из корзины");
+        listOperation.add("Поиск покупок по ключевым словам");
         listProduct = new ArrayList<>();
         listProduct.add("Молоко");
         listProduct.add("Хлеб");
         listProduct.add("Сыр");
+        listProduct.add("Хлебные сушки");
+        listProduct.add("Бургер \"Родной хлебушек\"");
         System.out.println("Добро пожаловать в наш магазин \"Азбука просрочки\"!");
         System.out.println("Для управления своей корзиной вы можете выбрать одну из операций:");
         for (String s : listOperation) {
@@ -87,6 +104,9 @@ public class Main {
                 case ("3"):
                     showBasket();
                     deleteProduct();
+                    break;
+                case ("4"):
+                    findProduct();
                     break;
                 default:
                     break;
