@@ -54,8 +54,6 @@ public class Main {
         System.out.println("Найдено: ");
         for (int i = 0; i < listBasket.size(); i++) {
             if (listBasket.get(i).toLowerCase().contains(choice.toLowerCase())) {
-                String s = listBasket.get(i);
-                int x = listBasket.indexOf(listBasket.get(i));
                 System.out.println(listBasket.indexOf(listBasket.get(i)) + 1 + ". " +listBasket.get(i));
             }
         }
