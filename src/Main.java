@@ -8,16 +8,30 @@ public class Main {
     protected static List<String> listOperation, listProduct;
     protected static List<String> listBasket = new ArrayList<>();//создаем корзину;
     protected static Scanner scanner = new Scanner(System.in);
+    protected static String choice;
 
     public static void addProductBasket() {
-        Iterator<String> iteratorProduct = listProduct.iterator();
-        System.out.println("Укажите номер товара или введите stop:");
-        while (iteratorProduct.hasNext()) {
-            String s = iteratorProduct.next();
-            System.out.println(listProduct.indexOf(s) + 1 +". " + s);
+        while (true) {
+            Iterator<String> iteratorProduct = listProduct.iterator();
+            System.out.println("Укажите номер товара или введите stop:");
+            while (iteratorProduct.hasNext()) {
+                String s = iteratorProduct.next();
+                System.out.println(listProduct.indexOf(s) + 1 +". " + s);
+            }
+            System.out.print("Какую покупку хотите добавить? ");
+            System.out.println("...или введите stop");
+            choice = scanner.nextLine();
+            if (choice.equals("stop")) break;
+            try {
+                if (listBasket.contains(listProduct.get(Integer.parseInt(choice) - 1))) {
+                    System.out.println("Такой товар уже выбран!");
+                } else {
+                    listBasket.add(listProduct.get(Integer.parseInt(choice) - 1));
+                }
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                System.out.println("Такого товара нет в списке!");
+            }
         }
-        System.out.print("Какую покупку хотите добавить? ");
-        System.out.println("...или введите stop");
     }
 
     public static void showBasket() {
@@ -76,25 +90,12 @@ public class Main {
             System.out.println(listOperation.indexOf(s) + 1 +". " + s);
         }
         System.out.println("end - для выхода из программы");
-        while (true) {
+        do {
             System.out.print("Выберите операцию или введите end: ");
-            String choice = scanner.nextLine();
+            choice = scanner.nextLine();
             switch (choice) {
                 case ("1"):
-                    while (true) {
-                        addProductBasket();
-                        choice = scanner.nextLine();
-                        if (choice.equals("stop")) break;
-                        try {
-                            if (listBasket.contains(listProduct.get(Integer.parseInt(choice) - 1))) {
-                                System.out.println("Такой товар уже выбран!");
-                            } else {
-                                listBasket.add(listProduct.get(Integer.parseInt(choice) - 1));
-                            }
-                        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                            System.out.println("Такого товара нет в списке!");
-                        }
-                    }
+                    addProductBasket();
                     break;
                 case ("2"):
                     showBasket();
@@ -109,8 +110,7 @@ public class Main {
                 default:
                     break;
             }
-            if (choice.equals("end")) break;
-        }
+        } while (!choice.equals("end"));
         System.out.println("Программа завершена!");
     }
 }
